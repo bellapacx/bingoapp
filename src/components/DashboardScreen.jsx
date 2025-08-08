@@ -86,7 +86,7 @@ const [restartedCards, setRestartedCards] = useState([]);
     const loadCards = async () => {
       try {
         // Try to load shop-specific JSON
-        const res = await fetch(`/data/${shopId}.json`);
+        const res = await fetch(`../data/${shopId}.json`);
         if (!res.ok) throw new Error("Shop-specific file not found");
 
         const data = await res.json();
@@ -95,7 +95,7 @@ const [restartedCards, setRestartedCards] = useState([]);
       } catch (err) {
         console.warn(`Falling back to default.json because: ${err.message}`);
         // Load default
-        const fallbackRes = await fetch(`/data/bingoCards.json`);
+        const fallbackRes = await fetch(`../data/bingoCards.json`);
         const fallbackData = await fallbackRes.json();
         setBingoCards(fallbackData);
       }
