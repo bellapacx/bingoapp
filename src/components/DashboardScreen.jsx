@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, Maximize2 } from 'react-feather';
 import WinningCardsModal from './WinningcardsModal';
 import { submitWinning } from '../service/api'; // Adjust the import path as necessary
-import bingoCardsData from '../data/bingoCards.json'; // Ensure this path is correct
+import bingoCards from '../data/bingoCards.json'; // Ensure this path is correct
 
 const NUMBER_RANGE = Array.from({ length: 75 }, (_, i) => i + 1);
 const CATEGORIES = {
@@ -79,6 +79,23 @@ const [restartedCards, setRestartedCards] = useState([]);
   const audioRef = useRef(null);
   const audioCache = useRef(new Map());
    
+  const [bingoCardsData, setBingoCards] = useState([]);
+
+  useEffect(() => {
+    const shopId = localStorage.getItem("shopid");
+    if (!shopId) {
+      setBingoCards(bingoCardsData);
+      return;
+    }
+
+    fetch(`/halobingo/data/${shopId}.json`)
+      .then(res => {
+        if (!res.ok) throw new Error("Not found");
+        return res.json();
+      })
+      .then(data => setBingoCards(data))
+      .catch(() => setBingoCards(bingoCards)); // fallback
+  }, []);
 
 useEffect(() => {
   const ranges = {
