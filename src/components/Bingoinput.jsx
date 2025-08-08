@@ -46,7 +46,7 @@ export default function BingoCardCreator() {
 
   return (
     <div className="p-6 bg-slate-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6 text-slate-700">Bingo Card Creators</h1>
+      <h1 className="text-2xl font-bold mb-6 text-slate-700">Bingo Card Creator</h1>
 
       <div className="mb-4 flex items-center gap-4">
         <label className="font-medium text-slate-700">Shop ID:</label>
