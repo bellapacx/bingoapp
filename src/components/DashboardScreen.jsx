@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, Maximize2 } from 'react-feather';
 import WinningCardsModal from './WinningcardsModal';
 import { submitWinning } from '../service/api'; // Adjust the import path as necessary
-import bingoCardsData from '../data/bingoCards.json'; // Ensure this path is correct
+//import bingoCardsData from '../data/bingoCards.json'; // Ensure this path is correct
 
 const NUMBER_RANGE = Array.from({ length: 75 }, (_, i) => i + 1);
 const CATEGORIES = {
@@ -78,6 +78,31 @@ const [restartedCards, setRestartedCards] = useState([]);
   const [availableVoices, setAvailableVoices] = useState([]);
   const audioRef = useRef(null);
   const audioCache = useRef(new Map());
+   const [bingoCardsData, setBingoCards] = useState([]);
+
+   useEffect(() => {
+    const shopId = localStorage.getItem("shopid") || "default";
+
+    const loadCards = async () => {
+      try {
+        // Try to load shop-specific JSON
+        const res = await fetch(`/data/${shopId}.json`);
+        if (!res.ok) throw new Error("Shop-specific file not found");
+
+        const data = await res.json();
+        setBingoCards(data);
+        console.log(`Loaded bingo cards for shop ${shopId}`);
+      } catch (err) {
+        console.warn(`Falling back to default.json because: ${err.message}`);
+        // Load default
+        const fallbackRes = await fetch(`/data/bingoCards.json`);
+        const fallbackData = await fallbackRes.json();
+        setBingoCards(fallbackData);
+      }
+    };
+
+    loadCards();
+  }, []);
 
 useEffect(() => {
   const ranges = {

@@ -20,6 +20,7 @@ export default function CardManagementScreen({ selectedCards, setCurrentView }) 
   const [blurred, setBlurred] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState(null);
+  const [showCreator, setShowCreator] = useState(false); 
 
   // Initialize local selected cards state from prop if present
   useEffect(() => {
