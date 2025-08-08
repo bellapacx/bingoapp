@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ModalReport from './ModalReport';
 import CardModal from './showCard';
-<<<<<<< HEAD
-const TOTAL_CARDS = 200;
 import BingoCardCreator from './Bingoinput';
-// Adjusted default card color to better suit the dark, sophisticated theme
-const DEFAULT_COLOR = '#3B82F6'; // A shade of blue that would fit the gradient
-=======
->>>>>>> c71e61cd394a52b4817acfe9640bda7c2155b336
 
 const TOTAL_CARDS = 200;
 const DEFAULT_COLOR = '#3B82F6'; // blue shade
@@ -26,16 +20,6 @@ export default function CardManagementScreen({ selectedCards, setCurrentView }) 
   const [blurred, setBlurred] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState(null);
-<<<<<<< HEAD
-   const [showCreator, setShowCreator] = useState(false); // <-- new state
-  // Logout function
-  const handleLogout = () => {
-    localStorage.clear();
-    // Optionally, you can redirect to a login screen or reset the view
-    setCurrentView({ name: 'login' });
-  };
-=======
->>>>>>> c71e61cd394a52b4817acfe9640bda7c2155b336
 
   // Initialize local selected cards state from prop if present
   useEffect(() => {
@@ -271,15 +255,12 @@ export default function CardManagementScreen({ selectedCards, setCurrentView }) 
           >
             Reports
           </button>
-<<<<<<< HEAD
           <button
               className="text-lg font-semibold text-blue-300 px-4 py-2 rounded bg-white/10 hover:bg-white/20 transition"
               onClick={() => setShowCreator(true)} // <-- open creator
             >
               Create Cards
             </button>
-=======
->>>>>>> c71e61cd394a52b4817acfe9640bda7c2155b336
         </div>
 
         <div className="flex justify-end mb-4">
@@ -330,13 +311,13 @@ export default function CardManagementScreen({ selectedCards, setCurrentView }) 
         onClose={() => setShowReportModal(false)}
         shopId={shopId}
       />
-<<<<<<< HEAD
+
       <CardModal
-  isOpen={isModalOpen}
-  onClose={handleCloseModal}
-  winningCardIds={selectedCardId ? [selectedCardId] : []}
-/>
-{/* NEW: Bingo Card Creator modal */}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        winningCardIds={selectedCardId ? [selectedCardId] : []}
+      />
+      {/* NEW: Bingo Card Creator modal */}
       {showCreator && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
           <div className="bg-white text-black rounded-lg p-4 w-[90%] max-w-5xl h-[90%] overflow-auto">
@@ -353,14 +334,6 @@ export default function CardManagementScreen({ selectedCards, setCurrentView }) 
           </div>
         </div>
       )}
-=======
-
-      <CardModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        winningCardIds={selectedCardId ? [selectedCardId] : []}
-      />
->>>>>>> c71e61cd394a52b4817acfe9640bda7c2155b336
     </div>
   );
 }
