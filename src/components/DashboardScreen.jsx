@@ -71,6 +71,7 @@ const [passedCards, setPassedCards] = useState([]);
 const [lockedCards, setLockedCards] = useState([]);
 const intervalRef = useRef(null); 
 const [winningPatterns, setWinningPatterns] = useState({});
+const [restartedCards, setRestartedCards] = useState([]);
 
   // State and ref for speech synthesis
   const speechUtteranceRef = useRef(null);
@@ -853,7 +854,14 @@ const togglePlayPause = () => {
     setCurrentCall(null);
     setWinningCards([]);
     setIsModalOpen(false);
-    setCurrentView('card_management');
+     // 🔥 Pass selectedCards via props to CardManagementScreen
+  setCurrentView({
+    name: 'card_management',
+    props: {
+      selectedCards,
+    },
+  });
+    
     window.speechSynthesis.cancel(); // Stop any speech on restart
   };
 
@@ -1050,18 +1058,22 @@ const togglePlayPause = () => {
 
   return (
     <div
-      key={num}
-      className={`py-2 rounded-lg font-bold text-2xl transition-all duration-200 shadow-lg flex items-center justify-center cursor-pointer hover:scale-110 hover:ring-4 hover:ring-yellow-300/40 hover:z-10
-        ${isCurrent
-          ? 'bg-gradient-to-br from-yellow-300 via-yellow-400 to-amber-400 text-yellow-900 font-extrabold transform scale-110 ring-4 ring-yellow-300 animate-blink shadow-yellow-300/60 shadow-2xl drop-shadow-lg'
-          : isCalled
-            ? 'bg-yellow-700/100 text-yellow-900 border-yellow-300 shadow-yellow-200/40 border font-bold'
-            : `${categoryColors[letter]} border drop-shadow-md`
-        }`}
-      style={{ height: '50px' }}
-    >
-      {num.toString().padStart(2, '0')}
-    </div>
+  key={num}
+  className={`
+    py-2 rounded-lg font-extrabold text-2xl transition-all duration-200 shadow-lg flex items-center justify-center cursor-pointer hover:scale-110 hover:ring-4 hover:ring-yellow-300/40 hover:z-10
+    ${isCurrent
+      ? 'bg-gradient-to-br from-yellow-300 via-yellow-400 to-amber-400 text-yellow-900 transform scale-110 ring-4 ring-yellow-300 animate-blink shadow-yellow-300/60 shadow-2xl drop-shadow-lg'
+      : isCalled
+        ? 'bg-yellow-500 text-white border-yellow-300 shadow-md shadow-yellow-200/40'
+        : `${categoryColors[letter]} border drop-shadow-md`
+    }
+  `}
+  style={{ height: '50px', minWidth: '40px', lineHeight: '1.2' }}
+>
+  {num.toString().padStart(2, '0')}
+</div>
+
+
   );
 })}
 

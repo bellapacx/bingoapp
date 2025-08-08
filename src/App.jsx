@@ -28,7 +28,10 @@ export default function App() {
         return <DashboardScreen {...currentView.props} setCurrentView={handleSetCurrentView} />;
       case 'card_management':
         // CardManagementScreen also needs setCurrentView for navigation
-        return <CardManagementScreen setCurrentView={handleSetCurrentView} />;
+        return  <CardManagementScreen
+    {...currentView.props} // This includes selectedCards
+    setCurrentView={handleSetCurrentView}
+  />;
       case 'login':
       default: // Default to login if currentView.name is not recognized or is 'login'
         return (
