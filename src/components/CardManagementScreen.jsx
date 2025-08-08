@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ModalReport from './ModalReport';
 import CardModal from './showCard';
 const TOTAL_CARDS = 200;
+import BingoCardCreator from './Bingoinput';
 // Adjusted default card color to better suit the dark, sophisticated theme
 const DEFAULT_COLOR = '#3B82F6'; // A shade of blue that would fit the gradient
 
@@ -19,6 +20,7 @@ export default function CardManagementScreen({ setCurrentView }) {
   const [blurred, setBlurred] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState(null);
+   const [showCreator, setShowCreator] = useState(false); // <-- new state
   // Logout function
   const handleLogout = () => {
     localStorage.clear();
@@ -256,7 +258,12 @@ export default function CardManagementScreen({ setCurrentView }) {
           >
             Reports
           </button>
-          
+          <button
+              className="text-lg font-semibold text-blue-300 px-4 py-2 rounded bg-white/10 hover:bg-white/20 transition"
+              onClick={() => setShowCreator(true)} // <-- open creator
+            >
+              Create Cards
+            </button>
         </div>
         <div className="flex justify-end mb-4">
           <button
@@ -312,7 +319,23 @@ export default function CardManagementScreen({ setCurrentView }) {
   onClose={handleCloseModal}
   winningCardIds={selectedCardId ? [selectedCardId] : []}
 />
-
+{/* NEW: Bingo Card Creator modal */}
+      {showCreator && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-white text-black rounded-lg p-4 w-[90%] max-w-5xl h-[90%] overflow-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">Bingo Card Creator</h2>
+              <button
+                onClick={() => setShowCreator(false)}
+                className="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600"
+              >
+                Close
+              </button>
+            </div>
+            <BingoCardCreator />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
